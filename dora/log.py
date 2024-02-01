@@ -80,7 +80,8 @@ class LogProgress:
             return value
 
     def _log(self):
-        self._speed = (1 + self._index) / (time.time() - self._begin)
+        # add small eps to prevent div by zero error
+        self._speed = (1 + self._index) / (time.time() - self._begin + 1e-4)
         infos = " | ".join(f"{k.capitalize()} {v}" for k, v in self._infos.items())
         if self._speed < 1e-4:
             speed = "oo sec/it"
