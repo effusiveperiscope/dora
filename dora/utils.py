@@ -54,7 +54,8 @@ def write_and_rename(path: Path, mode: str = "wb", suffix: str = ".tmp"):
     tmp_path = str(path) + suffix
     with open(tmp_path, mode) as f:
         yield f
-    os.rename(tmp_path, path)
+    # need this on windows
+    os.replace(tmp_path, path)
 
 
 def try_load(path: Path, load=pickle.load, mode: str = "rb"):
